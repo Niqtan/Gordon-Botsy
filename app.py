@@ -1,6 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
 import warnings
+import os
 
 warnings.filterwarnings("ignore")
 
@@ -8,7 +9,7 @@ warnings.filterwarnings("ignore")
 st.set_page_config(page_title="Recipe Chatbot 🍳", layout="centered")
 
 
-api_key = "AIzaSyAsIwG5JrrXsT3TrxLRGwq8waxnuKqB8_8"
+api_key = "API_KEY"
 
 # Main title
 st.title("👩‍🍳 Recipe & Cooking Chatbot")
