@@ -2,14 +2,16 @@ import streamlit as st
 import google.generativeai as genai
 import warnings
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 warnings.filterwarnings("ignore")
 
 # Streamlit page config
 st.set_page_config(page_title="Recipe Chatbot 🍳", layout="centered")
 
-
-api_key = "API_KEY"
+# Set your API key
+api_key = os.getenv('api_key')
 
 # Main title
 st.title("👩‍🍳 Recipe & Cooking Chatbot")
@@ -38,11 +40,14 @@ if api_key:
 
             # Get Gemini response
             response = st.session_state.chat_session.send_message(
-                f"You're a cooking expert. Give recipes and instructions clearly.\n\nUser: {prompt}"
+                f"You are a cooking expert named Gordon Bot-sy. Only provide recipes and instructions clearly. "
+                f":User  {prompt}"
             )
 
-            st.chat_message("assistant").markdown(response.text)
-            st.session_state.messages.append({"role": "assistant", "content": response.text})
+            # Extract and display only the recipe
+            recipe_text = response.text.strip()
+            st.chat_message("assistant").markdown(recipe_text)
+            st.session_state.messages.append({"role": "assistant", "content": recipe_text})
 
     except Exception as e:
         st.error(f"Error: {e}")
